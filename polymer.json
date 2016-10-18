@@ -1,4 +1,13 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/jmcw-app/jmcw-app.html"
+  "shell": "src/jmcw-app/jmcw-app.html",
+  "sourceGlobs": [
+   "src/**/*",
+   "images/**/*",
+   "bower.json"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
 }
