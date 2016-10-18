@@ -1,5 +1,14 @@
 {
   "name": "JMCW",
+  "homepage": "https://github.com/wongmjane/jmcw",
+  "authors": [
+    {
+      "name": "Jane Manchun Wong",
+      "email": "jane@wongmjane.com",
+      "homepage": "https://wongmjane.com"
+    }
+  ],
+  "license": "MIT",
   "private": true,
   "main": "index.html",
   "dependencies": {
