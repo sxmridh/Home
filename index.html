@@ -31,10 +31,45 @@
     <meta name="msapplication-TileColor" content="#FFEB3B">
     <meta name="msapplication-tap-highlight" content="no">
 
-    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="/src/jmcw-app/jmcw-app.html">
+    <link rel="import" href="/src/jmcw-app/jmcw-app.html" async>
   </head>
   <body>
     <jmcw-app></jmcw-app>
+    <script>
+      window.Polymer = {
+        dom: 'shadow',
+        lazyRegister: true
+      };
+      (function() {
+        'use strict';
+        var onload = function() {
+          if (!window.HTMLImports) {
+            document.dispatchEvent(
+              new CustomEvent('WebComponentsReady', {bubbles: true})
+            );
+          }
+        };
+        var webComponentsSupported = (
+          'registerElement' in document
+          && 'import' in document.createElement('link')
+          && 'content' in document.createElement('template')
+        );
+        if (!webComponentsSupported) {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+          script.onload = onload;
+          document.head.appendChild(script);
+        } else {
+          onload();
+        }
+      })();
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          console.log('registering service worker...')
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+    </script>
   </body>
 </html>
