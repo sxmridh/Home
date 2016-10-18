@@ -5,7 +5,7 @@ before_script:
   - npm install -g bower firebase-tools polymer-cli
 script:
   - bower install
-  - polymer build --html.collapseWhitespace --insert-dependency-links
+  - polymer build
 after_success:
   - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --project $FIREBASE_PROJECT --token $FIREBASE_TOKEN --non-interactive
 branches:
