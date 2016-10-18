@@ -1,9 +1,8 @@
 language: node_js
 node_js:
   - node
-install:
-  - npm config set prefix /usr/local
-  - npm install -g firebase-tools polymer-cli
+before_script:
+  - npm install -g bower firebase-tools polymer-cli
 script:
   - bower install --allow-root
   - polymer build --html.collapseWhitespace --insert-dependency-links
