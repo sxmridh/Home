@@ -100,6 +100,10 @@
         '_routeViewChanged(route.view)'
       ],
 
+      created: function() {
+         this.removeAttribute('unresolved');
+      },
+
       _routeViewChanged: function(view) {
         if(this.get('route.path') === "/") {
           this.set('route.path', '/home')
