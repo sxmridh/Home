@@ -1,17 +1,50 @@
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/platinum-https-redirect/platinum-https-redirect.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../ga-tracker/ga-tracker.html">
+<link rel="import" href="home-view.html">
+<link rel="import" href="notfound-view.html">
 
 <dom-module id="jmcw-app">
   <template>
     <style>
       :host {
+        --app-primary-color: var(--paper-yellow-500);
+        --app-secondary-color: black;
         display: block;
+      }
+      .inherit {
+        color: inherit;
+        background-color: inherit;
+      }
+      app-header {
+        color: black;
+        background-color: var(--app-primary-color);
+      }
+      app-header app-toolbar #logo a {
+        @apply(--paper-font-title);
+        text-decoration: none;
       }
     </style>
 
     <platinum-https-redirect></platinum-https-redirect>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+      route="{{route}}"
+      pattern="/:view"
+      data="{{routeData}}"
+      tail="{{subroute}}"
+      query-params="{{queryParams}}"></app-route>
 
     <ga-tracker
       name="jmcw"
@@ -25,6 +58,25 @@
       storageBucket = "wongmjane-com.appspot.com">
     </firebase-app>
 
+    <app-header-layout fullbleed>
+      <app-header shadow>
+        <app-toolbar>
+          <div id="logo">
+            <a href="/home" class="inherit">
+              <paper-button>JMCW</paper-button>
+            </a>
+          </div>
+        </app-toolbar>
+      </app-header>
+      <iron-pages
+        selected="[[routeData.view]]"
+        attr-for-selected="name"
+        fallback-selection="notfound">
+        <home-view name="home" route="{{subroute}}"></home-view>
+        <notfound-view name="notfound" route="{{subroute}}"></notfound-view>
+      </iron-pages>
+    </app-header-layout>
+
   </template>
 
   <script>
@@ -33,7 +85,15 @@
       is: 'jmcw-app',
 
       properties: {
+        view: String
       },
+
+      observers: [
+        '_routeChanged(route.*)'
+      ],
+
+      _routeChanged: function(changeRecord) {
+      }
 
     });
   </script>
