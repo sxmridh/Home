@@ -27,12 +27,16 @@
         background-color: inherit;
       }
       app-header {
-        color: black;
+        color: rgba(0, 0, 0, 0.8);
         background-color: var(--app-primary-color);
       }
       app-header app-toolbar #logo a {
         @apply(--paper-font-title);
         text-decoration: none;
+      }
+
+      #logo paper-button {
+        --paper-button-ink-color: var(--paper-yellow-a100);
       }
     </style>
 
