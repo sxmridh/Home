@@ -90,14 +90,20 @@
       is: 'jmcw-app',
 
       properties: {
-        view: String
+        view: {
+          type: String,
+          reflectToAttribute: true
+        }
       },
 
       observers: [
-        '_routeChanged(route.*)'
+        '_routeViewChanged(route.view)'
       ],
 
-      _routeChanged: function(changeRecord) {
+      _routeViewChanged: function(view) {
+        if(this.get('route.path') === "/") {
+          this.set('route.path', '/home')
+        }
       }
 
     });
