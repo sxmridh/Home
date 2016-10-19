@@ -13,7 +13,10 @@
 
     <platinum-https-redirect></platinum-https-redirect>
 
-    <ga-tracker name="jmcw" key="UA-68121577-5" requires="displayfeatures linkid"></ga-tracker>
+    <ga-tracker
+      name="jmcw"
+      key="UA-68121577-5"
+      requires="displayfeatures linkid"></ga-tracker>
 
     <firebase-app
       apiKey = "AIzaSyAhiXv7_Us1-EXAh-rOeQrMQVao3HM9SjI"
@@ -22,7 +25,6 @@
       storageBucket = "wongmjane-com.appspot.com">
     </firebase-app>
 
-    <h2>Hello [[prop1]]</h2>
   </template>
 
   <script>
@@ -31,10 +33,6 @@
       is: 'jmcw-app',
 
       properties: {
-        prop1: {
-          type: String,
-          value: 'jmcw-app',
-        },
       },
 
     });
