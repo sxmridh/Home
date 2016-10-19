@@ -12,6 +12,7 @@
   "private": true,
   "main": "index.html",
   "dependencies": {
+    "app-route": "PolymerElements/app-route#^0.9.2",
     "platinum-https-redirect": "PolymerElements/platinum-https-redirect#^1.0.2",
     "polymer": "Polymer/polymer#^1.7.0",
     "polymerfire": "firebase/polymerfire#^0.9.7"
