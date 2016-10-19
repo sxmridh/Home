@@ -93,6 +93,11 @@
         view: {
           type: String,
           reflectToAttribute: true
+        },
+        resolved: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
         }
       },
 
@@ -100,8 +105,8 @@
         '_routeViewChanged(route.view)'
       ],
 
-      created: function() {
-         this.removeAttribute('unresolved');
+      ready: function() {
+         this.resolved = true;
       },
 
       _routeViewChanged: function(view) {

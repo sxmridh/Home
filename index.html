@@ -46,7 +46,7 @@
       background-color: #eee;
       color: rgba(0, 0, 0, 0.8);
     }
-    jmcw-app[unresolved]::after {
+    jmcw-app[resolved=false]::after {
       font-weight: bold;
       font-size: 50px;
       position: relative;
@@ -72,7 +72,7 @@
     </style>
   </head>
   <body>
-    <jmcw-app unresolved></jmcw-app>
+    <jmcw-app resolved="false"></jmcw-app>
     <script>
       window.Polymer = {
         dom: 'shadow',
