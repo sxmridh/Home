@@ -12,7 +12,7 @@
   "private": true,
   "main": "index.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0",
+    "polymer": "Polymer/polymer#^1.7.0",
     "platinum-https-redirect": "PolymerElements/platinum-https-redirect#^1.0.2",
     "polymerfire": "firebase/polymerfire#^0.9.7"
   },
