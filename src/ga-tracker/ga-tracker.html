@@ -5,7 +5,12 @@
   Polymer({
     is: 'ga-tracker',
     properties: {
+      cookiedomain: {
+        type: String,
+        value: 'auto'
+      },
       key: String,
+      name: String,
       requires: String
     },
     attached: function() {
