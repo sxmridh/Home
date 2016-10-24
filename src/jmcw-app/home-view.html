@@ -1,5 +1,7 @@
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+
 
 <dom-module id="home-view">
   <template>
@@ -7,14 +9,27 @@
       :host {
         @apply --paper-font-body1;
       }
+      [hidden] {
+        display: none !important;
+      }
     </style>
     <div>
-      <h1>Welcome!</h1>
+      <h1 hidden="[[user]]">Please Sign in!</h1>
+      <h1 hidden="[[!user]]">Welcome, [[user.displayName]]</h1>
     </div>
   </template>
   <script>
   Polymer({
-    is: 'home-view'
+    is: 'home-view',
+    behaviors: [
+      Polymer.AppLocalizeBehavior
+    ],
+    properties: {
+      //Data Binding for AppLocalizeBehavior
+      language: String,
+      resources: Object,
+      user: Object
+    }
   });
   </script>
 </dom-module>

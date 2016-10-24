@@ -1,0 +1,18 @@
+{
+  "en-US": {
+    "sign-in": "Sign in",
+    "sign-out": "Sign Out",
+    "home-page": "Home",
+    "articles-page": "Articles",
+    "profile-page": "Profile",
+    "welcome": "Welcome!"
+  },
+  "zh-HK": {
+    "sign-in": "登入",
+    "sign-out": "登出",
+    "home-page": "首頁",
+    "articles-page": "文章",
+    "profile-page": "個人簡介",
+    "welcome": "歡迎！"
+  }
+}

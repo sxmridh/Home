@@ -1,18 +1,33 @@
 <link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/resize-snapped-title.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="../../bower_components/paper-styles/color.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/platinum-https-redirect/platinum-https-redirect.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../ga-tracker/ga-tracker.html">
 <link rel="import" href="home-view.html">
 <link rel="import" href="notfound-view.html">
+<link rel="import" href="post-view.html">
+<link rel="import" href="posts-view.html">
+<link rel="import" href="profile-view.html">
+<link rel="import" href="signin-view.html">
 
 <dom-module id="jmcw-app">
   <template>
@@ -26,13 +41,23 @@
         color: inherit;
         background-color: inherit;
       }
+      [hidden] {
+        display: none !important;
+      }
       app-header {
         color: rgba(0, 0, 0, 0.8);
         background-color: var(--app-primary-color);
+        --app-header-shadow: {
+          box-shadow: inset 0px 5px 2px -3px rgba(0, 0, 0, 0.2);
+        };
       }
-      app-header app-toolbar #logo a {
-        @apply(--paper-font-title);
-        text-decoration: none;
+
+      nav paper-tabs paper-tab {
+        @apply(--paper-font-menu);
+      }
+
+      nav paper-ripple {
+        color: white;
       }
 
       #logo paper-button {
@@ -56,20 +81,33 @@
       requires="displayfeatures linkid"></ga-tracker>
 
     <firebase-app
-      apiKey = "AIzaSyAhiXv7_Us1-EXAh-rOeQrMQVao3HM9SjI"
-      authDomain = "wongmjane-com.firebaseapp.com"
-      databaseUrl = "https://wongmjane-com.firebaseio.com"
-      storageBucket = "wongmjane-com.appspot.com">
+      api-key = "AIzaSyAhiXv7_Us1-EXAh-rOeQrMQVao3HM9SjI"
+      auth-domain = "wongmjane-com.firebaseapp.com"
+      database-url = "https://wongmjane-com.firebaseio.com"
+      storage-bucket = "wongmjane-com.appspot.com">
     </firebase-app>
 
+    <firebase-auth id="googleAuth" user="{{user}}" provider="google" on-error="handleError">
+
     <app-header-layout fullbleed>
-      <app-header shadow>
+      <app-header shadow reveal effects="waterfall">
         <app-toolbar>
-          <div id="logo">
-            <a href="/home" class="inherit">
-              <paper-button>JMCW</paper-button>
-            </a>
-          </div>
+          <paper-icon-button icon="icons:arrow-back" hidden></paper-icon-button>
+          <div class="title" main-title>JMCW</div>
+          <nav>
+            <paper-ripple></paper-ripple>
+            <paper-tabs
+              selected="{{routeData.view}}"
+              attr-for-selected="name"
+              fallback-selection="home"
+              noink
+              hidden="[[!user]]">
+              <paper-tab name="home">{{localize('home-page')}}</paper-tab>
+              <paper-tab name="profile">{{localize('profile-page')}}</paper-tab>
+            </paper-tabs>
+          </nav>
+          <paper-button on-tap="login" hidden="[[user]]">{{localize('sign-in')}}</paper-button>
+          <iron-image on-tap="logout" hidden="[[!user]]" src="[[user.photoURL]]" style="width:1.5em;height:1.5em;" sizing="contain"></iron-image>
         </app-toolbar>
       </app-header>
       <iron-pages
@@ -77,8 +115,12 @@
         attr-for-selected="name"
         fallback-selection="notfound"
         role="main">
-        <home-view name="home" route="{{subroute}}"></home-view>
+        <post-view name="post" route="{{subroute}}" heading="asdasd" content="Hello World!"></post-view>
+        <posts-view name="posts" route="{{subroute}}"></posts-view>
+        <home-view name="home" route="{{subroute}}" language="[[language]]" resources="[[resources]]" user="[[user]]"></home-view>
         <notfound-view name="notfound" route="{{subroute}}"></notfound-view>
+        <profile-view name="profile" route="{{subroute}}" user="[[user]]"></profile-view>
+        <signin-view name="signin" route="{{subroute}}"></signin-view>
       </iron-pages>
     </app-header-layout>
 
@@ -89,6 +131,10 @@
 
       is: 'jmcw-app',
 
+      behaviors: [
+        Polymer.AppLocalizeBehavior
+      ],
+
       properties: {
         view: {
           type: String,
@@ -98,6 +144,14 @@
           type: Boolean,
           reflectToAttribute: true,
           value: false
+        },
+        language: {
+          type: String,
+          value: 'en-US'
+        },
+        user: {
+          type: Object,
+          observer: '_updateUserInfo'
         }
       },
 
@@ -105,14 +159,39 @@
         '_routeViewChanged(route.view)'
       ],
 
+      _updateUserInfo: function(user) {
+
+      },
+
       ready: function() {
-         this.resolved = true;
+        this.loadResources(this.resolveUrl('locales.json'));
+        this.resolved = true;
+        window.asdf = this;
+        this.$.googleAuth.auth.onAuthStateChanged(function(user) {
+          if(!!user) {
+            console.log("Signed in");
+            this.set('user', user);
+
+          } else {
+            console.log("Not Yet");
+          }
+        }.bind(this));
       },
 
       _routeViewChanged: function(view) {
-        if(this.get('route.path') === "/") {
+        if(this.route.path === "/") {
           this.set('route.path', '/home')
         }
+      },
+
+      login: function() {
+        this.$.googleAuth.signInWithPopup("google");
+        this.set('route.path', '/home');
+      },
+
+      logout: function() {
+        this.$.googleAuth.signOut();
+        this.set('route.path', '/home');
       }
 
     });
