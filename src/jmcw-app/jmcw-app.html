@@ -14,6 +14,7 @@
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../../bower_components/platinum-https-redirect/platinum-https-redirect.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
@@ -60,6 +61,35 @@
       #logo paper-button {
         --paper-button-ink-color: var(--paper-yellow-a100);
       }
+
+      #profile-pic-button {
+        min-width: 0;
+        padding: 0;
+        margin: 0;
+        border-radius: 100%;
+      }
+
+      #profile-pic-button a {
+        width: 2em;
+        height: 2em;
+      }
+
+      #profile-pic-button .profile-pic {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+      }
+
+      #loginButton {
+        @apply(--paper-font-button);
+        background: var(--paper-blue-500);
+        color: white;
+      }
+
+      paper-toggle-button {
+        @apply(--paper-font-code1);
+      }
+
     </style>
 
     <platinum-https-redirect></platinum-https-redirect>
@@ -96,15 +126,17 @@
             <paper-tabs
               selected="{{routeData.view}}"
               attr-for-selected="name"
-              fallback-selection="home"
-              noink
-              hidden="[[!user]]">
+              noink>
               <paper-tab name="home">{{localize('home-page')}}</paper-tab>
-              <paper-tab name="profile">{{localize('profile-page')}}</paper-tab>
             </paper-tabs>
           </nav>
-          <paper-button on-tap="login" hidden="[[user]]">{{localize('sign-in')}}</paper-button>
-          <iron-image on-tap="logout" hidden="[[!user]]" src="[[user.photoURL]]" style="width:1.5em;height:1.5em;" sizing="contain"></iron-image>
+          <paper-button id="profile-pic-button" raised hidden="[[!user]]">
+            <a href="/profile">
+            <iron-image class="profile-pic" src="[[user.photoURL]]" sizing="contain">[[localize('profile-page')]]</iron-image>
+            </a>
+          </paper-button>
+          <paper-button id="loginButton" on-tap="login" hidden="[[user]]" raised>{{localize('sign-in-with', 'provider', 'Google')}}</paper-button>
+          <paper-toggle-button noink on-tap="toggleLocale" hidden=[[!queryParams.dev]]>[[language]]</paper-toggle-button>
         </app-toolbar>
       </app-header>
       <iron-pages
@@ -160,10 +192,16 @@
 
       },
 
+      toggleLocale: function() {
+        if(this.language != 'zh-HK')
+          this.set('language', 'zh-HK');
+        else
+          this.set('language', 'en-US');
+      },
+
       ready: function() {
         this.loadResources(this.resolveUrl('locales.json'));
         this.resolved = true;
-        window.asdf = this;
         this.$.googleAuth.auth.onAuthStateChanged(function(user) {
           if(!!user) {
             console.log("Signed in");
