@@ -1,3 +1,5 @@
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
@@ -10,8 +12,6 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
-<link rel="import" href="../../bower_components/paper-styles/color.html">
-<link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
@@ -20,131 +20,217 @@
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../ga-tracker/ga-tracker.html">
+<link rel="import" href="../jmcw-styles/typography.html">
 <link rel="import" href="home-view.html">
 <link rel="import" href="notfound-view.html">
 <link rel="import" href="post-view.html">
 <link rel="import" href="posts-view.html">
 <link rel="import" href="profile-view.html">
 <link rel="import" href="signin-view.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="jmcw-app">
   <template>
+    <style include="iron-flex"></style>
     <style>
-      :host {
-        --app-primary-color: var(--paper-yellow-500);
-        --app-secondary-color: black;
-        display: block;
-        touch-action: none;
-      }
-      .inherit {
-        color: inherit;
-        background-color: inherit;
-      }
-      [hidden] {
-        display: none !important;
-      }
-      app-header {
-        color: rgba(0, 0, 0, 0.8);
-        background-color: var(--app-primary-color);
-        --app-header-shadow: {
-          box-shadow: inset 0px 5px 2px -3px rgba(0, 0, 0, 0.2);
-        };
-      }
 
-      nav paper-tabs paper-tab {
-        @apply(--paper-font-menu);
-      }
+    :host {
+      @apply(--jmcw-font-common-base);
+      --app-primary-color: var(--paper-purple-500);
+      --app-secondary-color: black;
+      display: block;
+    }
 
-      nav paper-ripple {
-        color: white;
-      }
+    .inherit {
+      color: inherit;
+      background-color: inherit;
+    }
 
-      #logo paper-button {
-        --paper-button-ink-color: var(--paper-yellow-a100);
-      }
+    [hidden] {
+      display: none !important;
+    }
 
-      #profile-pic-button {
-        min-width: 0;
-        padding: 0;
-        margin: 0;
-        border-radius: 100%;
-      }
+    nav paper-ripple {
+      color: #F5F5F5;
+      z-index: -1;
+    }
 
-      #profile-pic-button a {
-        width: 2em;
-        height: 2em;
-      }
+    #profile-pic-button {
+      min-width: 0;
+      padding: 0;
+      margin: 0;
+      border-radius: 100%;
+    }
 
-      #profile-pic-button .profile-pic {
-        width: 100%;
-        height: 100%;
-        border-radius: 100%;
-      }
+    #profile-pic-button a {
+      width: 2em;
+      height: 2em;
+    }
 
-      #loginButton {
-        @apply(--paper-font-button);
-        background: var(--paper-blue-500);
-        color: white;
-      }
+    #profile-pic-button .profile-pic {
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+    }
 
-      paper-toggle-button {
-        @apply(--paper-font-code1);
-      }
+    #loginButton {
+      @apply(--paper-font-button);
+      background: var(--paper-light-blue-600);
+      color: white;
+      @apply(--jmcw-font-common-code);
+      font-weight: 600;
+      font-size: 17px;
+      letter-spacing: 0.3em;
+    }
+
+    paper-toggle-button {
+      @apply(--paper-font-code1);
+    }
+
+    app-drawer.main {
+      @apply(--shadow-elevation-2dp);
+      @apply(--layout-vertical);
+      /*background: var(--paper-purple-500);*/
+    }
+
+    app-drawer.main .flex {
+      @apply(--layout-flex);
+      display: block;
+      text-decoration: none;
+      height: calc(100% - 128px );
+    }
+
+    app-drawer h1 {
+      @apply(--jmcw-font-common-code);
+      font-weight: 300;
+    }
+
+    app-toolbar.topbar {
+      height: 64px;
+    }
+
+    .titletopbar-wrapper {
+      text-decoration: none;
+    }
+
+    app-toolbar.title {
+      background: linear-gradient(135deg, #E1F5FE, #FCE4EC);
+      color: #FAFAFA;
+      font-weight: bold;
+      line-height: 1em;
+    }
+
+    app-toolbar.content-title {
+      background: #B0BEC5;
+      color: white;
+    }
+
+    app-toolbar.title [main-title] {
+      @apply(--jmcw-font-common-code);
+      text-align: center;
+      font-size: 1.5em;
+      text-shadow: -1.5px -1.5px 0 #F8BBD0, 1.5px 1.5px 0 #B3E5FC;
+      color: rgba(255, 255, 255, 1);
+    }
+
+    iron-pages {
+      /*height: 100vh;*/
+    }
+
+    paper-listbox paper-item {
+
+    }
+
+    app-toolbar.footer {
+      text-align: center;
+      display: block;
+      height: 64px;
+      background: var(--paper-grey-50);
+    }
+
+    app-toolbar.footer .flex {
+      height: inherit;
+      line-height: 64px;
+    }
+
+    app-toolbar.footer #loginButton {
+      width: 100%;
+    }
 
     </style>
 
     <platinum-https-redirect></platinum-https-redirect>
 
     <app-location route="{{route}}"></app-location>
+
     <app-route
-      route="{{route}}"
-      pattern="/:view"
-      data="{{routeData}}"
-      tail="{{subroute}}"
-      query-params="{{queryParams}}"></app-route>
+      route        = "{{route}}"
+      pattern      = "/:view"
+      data         = "{{routeData}}"
+      tail         = "{{subroute}}"
+      query-params = "{{queryParams}}">
+    </app-route>
 
     <ga-tracker
-      name="jmcw"
-      key="UA-68121577-5"
-      requires="displayfeatures linkid"></ga-tracker>
+      name     = "jmcw"
+      key      = "UA-68121577-5"
+      requires = "displayfeatures linkid">
+    </ga-tracker>
 
     <firebase-app
-      api-key = "AIzaSyAhiXv7_Us1-EXAh-rOeQrMQVao3HM9SjI"
-      auth-domain = "wongmjane-com.firebaseapp.com"
-      database-url = "https://wongmjane-com.firebaseio.com"
+      api-key        = "AIzaSyAhiXv7_Us1-EXAh-rOeQrMQVao3HM9SjI"
+      auth-domain    = "wongmjane-com.firebaseapp.com"
+      database-url   = "https://wongmjane-com.firebaseio.com"
       storage-bucket = "wongmjane-com.appspot.com">
     </firebase-app>
 
-    <firebase-auth id="googleAuth" user="{{user}}" provider="google" on-error="handleError">
+    <firebase-auth
+      id       = "auth"
+      user     = "{{user}}"
+      provider = "google"
+      on-error = "handleError">
+    </firebase-auth>
 
-    <app-header-layout fullbleed>
-      <app-header shadow reveal>
-        <app-toolbar>
-          <paper-icon-button icon="icons:arrow-back" hidden></paper-icon-button>
-          <div class="title" main-title>JMCW</div>
-          <nav>
-            <paper-ripple></paper-ripple>
-            <paper-tabs
-              selected="{{routeData.view}}"
-              attr-for-selected="name"
-              noink>
-              <paper-tab name="home">{{localize('home-page')}}</paper-tab>
-            </paper-tabs>
-          </nav>
+    <app-drawer-layout fullbleed>
+
+      <app-drawer class="main layout vertical" swipeOpen>
+        <a href="/" class="titletopbar-wrapper">
+        <app-toolbar class="title topbar">
+          <paper-ripple></paper-ripple>
+          <div main-title>JMCW</div>
+        </app-toolbar>
+        </a>
+        <div class="flex">
+          <paper-listbox
+            selected="{{routeData.view}}"
+            attr-for-selected="name">
+            <paper-item name="post" hidden="[[!user]]">{{localize('articles-page')}}</paper-item>
+          </paper-listbox>
+        </div>
+        <app-toolbar class="footer layout horizontal">
           <paper-button id="profile-pic-button" raised hidden="[[!user]]">
             <a href="/profile">
             <iron-image class="profile-pic" src="[[user.photoURL]]" sizing="contain">[[localize('profile-page')]]</iron-image>
             </a>
           </paper-button>
-          <paper-button id="loginButton" on-tap="login" hidden="[[user]]" raised>{{localize('sign-in-with', 'provider', 'Google')}}</paper-button>
-          <paper-toggle-button noink on-tap="toggleLocale" hidden=[[!queryParams.dev]]>[[language]]</paper-toggle-button>
+          <div class="flex">
+            <paper-button id="loginButton" on-tap="login" hidden="[[user]]" raised>{{localize('sign-in', 'provider', 'Google')}}</paper-button>
+          </div>
+          <paper-icon-button icon="lock-outline" on-tap="logout" hidden="[[!user]]"></paper-icon-button>
         </app-toolbar>
-      </app-header>
+      </app-drawer>
+
       <iron-pages
         selected="[[routeData.view]]"
         attr-for-selected="name"
         fallback-selection="notfound"
-        role="main">
+        role="main"
+        fullbleed>
         <post-view name="post" route="{{subroute}}" heading="asdasd" content="Hello World!"></post-view>
         <posts-view name="posts" route="{{subroute}}"></posts-view>
         <home-view name="home" route="{{subroute}}" language="[[language]]" resources="[[resources]]" user="[[user]]"></home-view>
@@ -152,7 +238,10 @@
         <profile-view name="profile" route="{{subroute}}" user="[[user]]"></profile-view>
         <signin-view name="signin" route="{{subroute}}"></signin-view>
       </iron-pages>
-    </app-header-layout>
+
+    </app-drawer-layout>
+
+
 
   </template>
 
@@ -203,7 +292,7 @@
       ready: function() {
         this.loadResources(this.resolveUrl('locales.json'));
         this.resolved = true;
-        this.$.googleAuth.auth.onAuthStateChanged(function(user) {
+        this.$.auth.auth.onAuthStateChanged(function(user) {
           if(!!user) {
             console.log("Signed in");
             this.set('user', user);
@@ -221,12 +310,12 @@
       },
 
       login: function() {
-        this.$.googleAuth.signInWithPopup("google");
+        this.$.auth.signInWithPopup("google");
         this.set('route.path', '/home');
       },
 
       logout: function() {
-        this.$.googleAuth.signOut();
+        this.$.auth.signOut();
         this.set('route.path', '/home');
       }
 

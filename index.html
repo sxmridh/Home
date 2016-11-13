@@ -40,12 +40,14 @@
     <style>
     body {
       margin: 0;
-      font-family: 'Roboto', 'Noto', sans-serif;
+      font-family: 'Libre Franklin', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Noto', 'Arial', sans-serif;
       min-height: 100vh;
-      background-color: #eee;
+      background: #FAFAFA;
+      background-attachment: fixed;
       color: rgba(0, 0, 0, 0.8);
-      touch-action: none;
+      touch-action: manipulation;
     }
+
     jmcw-app[resolved=false]::after {
       font-weight: bold;
       font-size: 50px;
@@ -61,6 +63,7 @@
       line-height: 4em;
       animation: loading 2s infinite alternate both;
     }
+
     @keyframes loading {
       0% {
         color: rgba(255, 255, 255, 1);
@@ -69,6 +72,7 @@
         color: rgba(255, 255, 255, 0.2);
       }
     }
+
     </style>
   </head>
   <body>
