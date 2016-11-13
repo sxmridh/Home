@@ -79,7 +79,8 @@
     <jmcw-app resolved="true"></jmcw-app>
     <script>
       window.Polymer = {
-        dom: 'shadow'
+        dom: 'shadow',
+        lazyRegister: true
       };
       (function() {
         'use strict';
@@ -95,7 +96,7 @@
           && 'import' in document.createElement('link')
           && 'content' in document.createElement('template')
         );
-        if (!webComponentsSupported) {
+        if (true || !webComponentsSupported) {
           var script = document.createElement('script');
           script.async = true;
           script.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
