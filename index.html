@@ -35,8 +35,6 @@
     <meta name="msapplication-TileColor" content="#FFEB3B">
     <meta name="msapplication-tap-highlight" content="no">
 
-    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-
     <link rel="import" href="/src/jmcw-app/jmcw-app.html" async>
 
     <style>
@@ -79,11 +77,11 @@
   </head>
   <body>
     <jmcw-app resolved="true"></jmcw-app>
-    <!-- <script>
-      // window.Polymer = {
-      //   dom: 'shadow',
-      //   lazyRegister: true
-      // };
+    <script>
+      window.Polymer = {
+        dom: 'shadow',
+        lazyRegister: true
+      };
       (function() {
         'use strict';
         var onload = function() {
@@ -114,6 +112,6 @@
           navigator.serviceWorker.register('/service-worker.js');
         });
       }
-    </script> -->
+    </script>
   </body>
 </html>
