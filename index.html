@@ -35,6 +35,15 @@
     <meta name="msapplication-TileColor" content="#FFEB3B">
     <meta name="msapplication-tap-highlight" content="no">
 
+    <script>
+    window.Polymer = {
+      dom: 'shadow',
+      lazyRegister: true
+    };
+    </script>
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js" async></script>
+
     <link rel="import" href="/src/jmcw-app/jmcw-app.html" async>
 
     <style>
@@ -77,7 +86,7 @@
   </head>
   <body>
     <jmcw-app resolved="true"></jmcw-app>
-    <script>
+    <!-- <script>
       window.Polymer = {
         dom: 'shadow',
         lazyRegister: true
@@ -112,6 +121,6 @@
           navigator.serviceWorker.register('/service-worker.js');
         });
       }
-    </script>
+    </script> -->
   </body>
 </html>
