@@ -1,0 +1,28 @@
+{
+    "name": "wongmjane-com",
+    "version": "0.0.0",
+    "description": "@wongmjane's personal website",
+    "scripts": {
+        "build": "npm run install && gulp",
+        "deploy": "firebase deploy --token $FIREBASE_TOKEN --non-interactive",
+        "install": "bower install",
+        "serve": "npm run build && firebase serve"
+    },
+    "engines": {
+        "node": ">=4.0"
+    },
+    "private": true,
+    "devDependencies": {
+        "bower": "^1.8.0",
+        "css-slam": "^1.2.1",
+        "del": "^2.2.1",
+        "firebase-tools": "^3.2.1",
+        "gulp": "gulpjs/gulp#4.0",
+        "gulp-html-minifier": "^0.1.8",
+        "gulp-if": "^2.0.2",
+        "gulp-uglify": "^2.0.0",
+        "merge-stream": "^1.0.0",
+        "plylog": "^0.4.0",
+        "polymer-build": "^0.6.0"
+    }
+}
