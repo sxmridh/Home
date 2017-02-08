@@ -1,13 +1,12 @@
 {
   "database": {},
   "hosting": {
-    "public": "build/unbundled",
+    "public": "build/public",
     "rewrites": [
       {
-        "source": "**",
+        "source": "**/!(*.js|*.html|*.css|*.json|*.svg|*.png|*.jpg|*.jpeg)",
         "destination": "/index.html"
       }
-    ],
-    "trailingSlash": false
+    ]
   }
 }

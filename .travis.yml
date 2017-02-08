@@ -2,12 +2,16 @@ language: node_js
 node_js:
   - node
 before_script:
-  - npm install -g bower firebase-tools polymer-cli
+  - npm install
 script:
-  - bower install
-  - polymer build --html.collapseWhitespace
+  - npm run install
+  - npm run build
 after_success:
-  - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --project $FIREBASE_PROJECT --token $FIREBASE_TOKEN --non-interactive
+  - npm run deploy
 branches:
   only:
     - master
+cache:
+  directories:
+    - node_modules
+    - public/dep

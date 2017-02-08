@@ -1,13 +1,14 @@
 {
-  "entrypoint": "index.html",
-  "shell": "src/jmcw-app/jmcw-app.html",
-  "sourceGlobs": [
-   "src/**/*",
-   "images/**/*",
-   "bower.json"
+  "entrypoint": "public/index.html",
+  "shell": "public/src/wongmjane-app.html",
+  "fragments": [
   ],
-  "includeDependencies": [
-    "manifest.json",
-    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  "sources": [
+    "public/src/**/*",
+    "public/manifest_pwa.json"
+  ],
+  "extraDependencies": [
+    "public/dep/intl/dist/Intl.min.js",
+    "public/dep/webcomponentsjs/webcomponents-lite.min.js"
   ]
 }
