@@ -1,5 +1,6 @@
-**/.firebaserc
 bower_components
+public/dep
 build
 node_modules
 *.log
+
