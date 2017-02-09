@@ -1,11 +1,71 @@
 <link rel="import" href="../dep/polymer/polymer.html">
 
+<link rel="import" href="../dep/platinum-https-redirect/platinum-https-redirect.html">
+
+<link rel="import" href="../dep/app-route/app-location.html">
+<link rel="import" href="../dep/app-route/app-route.html">
+
+<link rel="import" href="../dep/polymerfire/firebase-app.html">
+<link rel="import" href="../dep/polymerfire/firebase-auth.html">
+
+<link rel="import" href="../dep/iron-pages/iron-pages.html">
+
+<link rel="import" href="fragments/http404-fragment.html">
+<link rel="import" href="fragments/index-fragment.html">
+
 <dom-module id="wongmjane-app">
-  <template>
+  <template strip-whitespace>
+    <style>
+    [hidden] {
+      display: none;
+    }
+    </style>
+    <platinum-https-redirect></platinum-https-redirect>
+    <app-location route="{{route}}"></app-location>
+    <app-route
+      route="{{route}}"
+      pattern="/:fragment"
+      data="{{routeData}}"
+      tail="{{subroute}}"
+      active="{{routeActive}}"></app-route>
+    <firebase-app
+      api-key="AIzaSyAhiXv7_Us1-EXAh-rOeQrMQVao3HM9SjI"
+      auth-domain="wongmjane-com.firebaseapp.com"
+      database-url="https://wongmjane-com.firebaseio.com"
+      storage-bucket="wongmjane-com.appspot.com"
+      messaging-sender-id="910206483830"></firebase-app>
+    <firebase-auth
+      id="auth"
+      user="{{user}}"></firebase-auth>
+    <iron-pages
+      attr-for-selected="name"
+      selected="[[routeData.fragment]]"
+      fallback-selection="http404">
+      <index-fragment
+        name="index"
+        route="{{subroute}}"></index-fragment>
+      <http404-fragment
+        name="http404"></http404-fragment>
+    </iron-pages>
   </template>
   <script>
   Polymer({
-    is: 'wongmjane-app'
+    is: 'wongmjane-app',
+    observers: [
+      '__fragmentChanged(routeData.fragment)',
+      'consoleLog(routeData)'
+    ],
+    __fragmentChanged: function(val) {
+      this.routeActive
+      && !val.length
+      && this.set('routeData.fragment', 'index');
+    },
+    consoleLog: function(val) {
+      console.log(val);
+    },
+    attached: function() {
+      console.log('attached')
+    }
   })
   </script>
 </dom-module>
