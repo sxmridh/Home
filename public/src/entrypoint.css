@@ -1,6 +1,4 @@
 body {
   margin: 0;
-  font-family:  'Noto Sans', 'Roboto', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  min-height: 100vh;
-  touch-action: manipulation;
+  font-family:  sans-serif;
 }
