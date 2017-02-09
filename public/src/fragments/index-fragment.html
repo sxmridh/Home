@@ -1,0 +1,139 @@
+<link rel="import" href="../../dep/polymer/polymer.html">
+
+<dom-module id="index-fragment">
+  <template>
+    <style>
+    :host {
+      display: block;
+      margin: 0 1em;
+    }
+    ul.hlist, ol.hlist {
+      list-style: none;
+    }
+    .hlist > li {
+      display: inline-block;
+    }
+    .hlist li + li::before {
+      content: "|";
+    }
+    .externallinksblk {
+      display: block;
+    }
+    .externallinksblk > h3 {
+      margin: 1em 0 0;
+    }
+    .externallinksblk > * {
+      display: inline-block;
+    }
+    .externallinksblk ul {
+      padding-left: 1em;
+    }
+    </style>
+    <header>
+      <h1>Jane Manchun Wong's Personal Website</h1>
+      <h2></h2>
+    </header>
+    <main>
+      This website is under-construction.
+    </main>
+    <div>
+      <h3>GPG Key</h3>
+      <pre>
+pub   rsa4096 2016-04-07
+      891FFAD37E59CF03CEB19A8619FBB3DCB631C117
+uid           Jane Manchun Wong &lt;jane@wongmjane.com&gt;
+uid           Jane Manchun Wong &lt;wongmjane@gmail.com&gt;
+sub   rsa4096 2016-04-07
+      </pre>
+      <textarea cols="64" rows="20" readonly>-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+=eu1R
+-----END PGP PUBLIC KEY BLOCK-----
+</textarea>
+    </div>
+    <div class="externallinksblk">
+      <h3>Find me on:</h3>
+      <ul class="hlist">
+        <li>
+          <a href="https://facebook.com/wongmjane">Facebook</a>
+        </li>
+        <li>
+          <a href="https://github.com/wongmjane">GitHub</a>
+        </li>
+        <li>
+          <a href="https://instagram.com/wongmjane">Instagram</a>
+        </li>
+        <li>
+          <a href="https://twitter.com/wongmjane">Twitter</a>
+        </li>
+      </ul>
+    </div>
+    <footer>
+      <small>Copyright &copy; 2017 Jane Manchun Wong</small>
+    </footer>
+  </template>
+  <script>
+  Polymer({
+    is: 'index-fragment'
+  });
+  </script>
+</dom-module>
